@@ -1,6 +1,6 @@
 import { React, Fragment } from "react";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
-import { isAdmin, isAuthenticated, signout } from "../auth/helper";
+import { isAuthenticated, signout } from "../auth/helper";
 
 const currentTab = (location, path) => {
   // console.log("LOCATION:" + location);
@@ -54,23 +54,26 @@ const Menu = ({ router }) => {
             Cart
           </Link>
         </li>
-        <li className="nav-item">
-          <Link
-            className="nav-link"
-            style={currentTab(router.location.pathname, "/user/dashboard")}
-            to="/user/dashboard"
-          >
-            Dashboard
-          </Link>
-        </li>
-        {isAdmin() && (
+        {isAuthenticated() && isAuthenticated().user.role === 0 && (
+          <li className="nav-item">
+            <Link
+              className="nav-link"
+              style={currentTab(router.location.pathname, "/user/dashboard")}
+              to="/user/dashboard"
+            >
+              Dashboard
+            </Link>
+          </li>
+        )}
+
+        {isAuthenticated() && isAuthenticated().user.role === 1 && (
           <li className="nav-item">
             <Link
               className="nav-link"
               style={currentTab(router.location.pathname, "/admin/dashboard")}
               to="/admin/dashboard"
             >
-              A. Dasboard
+              Dashboard
             </Link>
           </li>
         )}

@@ -47,9 +47,9 @@ const SignIn = () => {
     // console.log("VAMOS!!" + user);
     if (didRedirect) {
       if (user && user.role === 1) {
-        <p>Re-direct to admin</p>;
+        return <Navigate to="/admin/dashboard" />;
       } else {
-        <p>Re-direct to user</p>;
+        return <Navigate to="/user/dashboard" />;
       }
     }
     if (isAuthenticated()) {
