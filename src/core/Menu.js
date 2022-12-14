@@ -1,16 +1,20 @@
-import React from "react";
+import { React, Fragment } from "react";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
+import { isAdmin, isAuthenticated, signout } from "../auth/helper";
 
 const currentTab = (location, path) => {
-  console.log(path);
-  console.log(location);
+  // console.log("LOCATION:" + location);
+  // console.log("PATH    :" + path);
+  var colors;
   try {
-    if (!location) return { color: "#FFFFFF" };
+    if (!location) colors = "#FFFFFF";
     if (location === path) {
-      return { color: "#2ecc72" };
+      colors = "#2ecc72";
     } else {
-      return { color: "#FFFFFF" };
+      colors = "#FFFFFF";
     }
+    // console.log(colors);
+    return { color: colors };
   } catch (err) {
     return { color: "#FFFFFF" };
   }
@@ -27,6 +31,7 @@ function withRouter(Component) {
 }
 
 const Menu = ({ router }) => {
+  // console.log(currentTab("/signup", "/signup"));
   // console.log(router);
   return (
     <div>
@@ -34,7 +39,7 @@ const Menu = ({ router }) => {
         <li className="nav-item">
           <Link
             style={currentTab(router.location.pathname, "/")}
-            className="nav-link text-white"
+            className="nav-link"
             to="/"
           >
             Home
@@ -42,8 +47,8 @@ const Menu = ({ router }) => {
         </li>
         <li className="nav-item">
           <Link
+            className="nav-link"
             style={currentTab(router.location.pathname, "/cart")}
-            className="nav-link text-white"
             to="/cart"
           >
             Cart
@@ -51,49 +56,60 @@ const Menu = ({ router }) => {
         </li>
         <li className="nav-item">
           <Link
+            className="nav-link"
             style={currentTab(router.location.pathname, "/user/dashboard")}
-            className="nav-link text-white"
             to="/user/dashboard"
           >
             Dashboard
           </Link>
         </li>
-        <li className="nav-item">
-          <Link
-            style={currentTab(router.location.pathname, "/admin/dashboard")}
-            className="nav-link text-white"
-            to="/admin/dashboard"
-          >
-            A. Dasboard
-          </Link>
-        </li>
-        <li className="nav-item">
-          <Link
-            style={currentTab(router.location.pathname, "/signup")}
-            className="nav-link text-white"
-            to="/signup"
-          >
-            Sign Up
-          </Link>
-        </li>
-        <li className="nav-item">
-          <Link
-            style={currentTab(router.location.pathname, "/signin")}
-            className="nav-link text-white"
-            to="/signin"
-          >
-            Sign In
-          </Link>
-        </li>
-        <li className="nav-item">
-          <Link
-            style={currentTab(router.location.pathname, "/signout")}
-            className="nav-link text-white"
-            to="/signout"
-          >
-            Sign Out
-          </Link>
-        </li>
+        {isAdmin() && (
+          <li className="nav-item">
+            <Link
+              className="nav-link"
+              style={currentTab(router.location.pathname, "/admin/dashboard")}
+              to="/admin/dashboard"
+            >
+              A. Dasboard
+            </Link>
+          </li>
+        )}
+        {!isAuthenticated() && (
+          <Fragment>
+            <li className="nav-item">
+              <Link
+                className="nav-link"
+                style={currentTab(router.location.pathname, "/signup")}
+                to="/signup"
+              >
+                Sign Up
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link
+                style={currentTab(router.location.pathname, "/signin")}
+                className="nav-link"
+                to="/signin"
+              >
+                Sign In
+              </Link>
+            </li>
+          </Fragment>
+        )}
+        {isAuthenticated() && (
+          <li className="nav-item">
+            <span
+              className="nav-link text-warning"
+              onClick={() => {
+                signout(() => {
+                  router.navigate("/");
+                });
+              }}
+            >
+              Sign Out
+            </span>
+          </li>
+        )}
       </ul>
     </div>
   );

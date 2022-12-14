@@ -52,11 +52,23 @@ export const signout = next => {
 };
 
 export const isAuthenticated = () => {
-  if (typeof window !== "undefined") {
+  if (typeof window == "undefined") {
     return false;
   }
   if (localStorage.getItem("jwt")) {
     return JSON.parse(localStorage.getItem("jwt"));
+  } else {
+    return false;
+  }
+};
+
+export const isAdmin = () => {
+  if (typeof window == "undefined") {
+    return false;
+  }
+  if (localStorage.getItem("jwt")) {
+    const { user } = JSON.parse(localStorage.getItem("jwt"));
+    if (user.role == 1) return true;
   } else {
     return false;
   }

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Base from "../core/Base";
-import { Link, redirect as Redirect } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { authenticate, isAuthenticated, signin } from "../auth/helper";
 
 const SignIn = () => {
@@ -15,6 +15,7 @@ const SignIn = () => {
   const { email, password, errors, loading, didRedirect } = values;
 
   const { user } = isAuthenticated();
+  console.log("No Vamos" + JSON.stringify(user));
 
   const handleChange = name => event => {
     setValues({ ...values, errors: false, [name]: event.target.value });
@@ -43,16 +44,16 @@ const SignIn = () => {
   };
 
   const performRedirect = () => {
-    console.log("VAMOS!!" + user);
+    // console.log("VAMOS!!" + user);
     if (didRedirect) {
       if (user && user.role === 1) {
-        return <p>Re-direct to admin</p>;
+        <p>Re-direct to admin</p>;
       } else {
-        return <p>Re-direct to user</p>;
+        <p>Re-direct to user</p>;
       }
     }
     if (isAuthenticated()) {
-      return <Redirect to="/" />;
+      return <Navigate to="/" />;
     }
   };
 
