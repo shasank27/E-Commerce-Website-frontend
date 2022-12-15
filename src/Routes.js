@@ -1,6 +1,9 @@
 import React from "react";
 import { BrowserRouter, Routes as Switch, Route } from "react-router-dom";
 import CreateCategory from "./admin/AddCategory";
+import AddProduct from "./admin/AddProduct";
+import ManageCategories from "./admin/ManageCategories";
+import ManageProducts from "./admin/ManageProducts";
 import AdminRoute from "./auth/helper/AdminRoutes";
 import PrivateRoute from "./auth/helper/PrivateRoutes";
 import Home from "./core/Home";
@@ -34,10 +37,34 @@ const Routes = () => {
           }
         />
         <Route
+          path="/admin/create/product"
+          element={
+            <AdminRoute>
+              <AddProduct />
+            </AdminRoute>
+          }
+        />
+        <Route
           path="/admin/create/category"
           element={
             <AdminRoute>
               <CreateCategory />
+            </AdminRoute>
+          }
+        />
+        <Route
+          path="/admin/manage/product"
+          element={
+            <AdminRoute>
+              <ManageProducts />
+            </AdminRoute>
+          }
+        />
+        <Route
+          path="/admin/manage/category"
+          element={
+            <AdminRoute>
+              <ManageCategories />
             </AdminRoute>
           }
         />
