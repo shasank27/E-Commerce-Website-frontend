@@ -95,7 +95,7 @@ export const updateProduct = (productId, userId, token, product) => {
 };
 
 //delete a product
-export const deleteProduct = (productId, userId, token, product) => {
+export const deleteProduct = (productId, userId, token) => {
   return fetch(`${API}/product/${userId}/${productId}`, {
     method: "DELETE",
     headers: {

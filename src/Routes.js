@@ -4,6 +4,7 @@ import CreateCategory from "./admin/AddCategory";
 import AddProduct from "./admin/AddProduct";
 import ManageCategories from "./admin/ManageCategories";
 import ManageProducts from "./admin/ManageProducts";
+import UpdateProduct from "./admin/UpdateProduct";
 import AdminRoute from "./auth/helper/AdminRoutes";
 import PrivateRoute from "./auth/helper/PrivateRoutes";
 import Home from "./core/Home";
@@ -49,6 +50,14 @@ const Routes = () => {
           element={
             <AdminRoute>
               <CreateCategory />
+            </AdminRoute>
+          }
+        />
+        <Route
+          path="/admin/product/update/:productId"
+          element={
+            <AdminRoute>
+              <UpdateProduct />
             </AdminRoute>
           }
         />
