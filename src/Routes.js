@@ -7,6 +7,7 @@ import ManageProducts from "./admin/ManageProducts";
 import UpdateProduct from "./admin/UpdateProduct";
 import AdminRoute from "./auth/helper/AdminRoutes";
 import PrivateRoute from "./auth/helper/PrivateRoutes";
+import Cart from "./core/Cart";
 import Home from "./core/Home";
 import AdminDashboard from "./user/AdminDashBoard";
 import SignIn from "./user/Signin";
@@ -20,6 +21,7 @@ const Routes = () => {
         <Route path="/" element={<Home />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/signin" element={<SignIn />} />
+        <Route path="/cart" element={<Cart />} />
         {/* <PrivateRoute path="/user/dashboard" element={ <UserDashboard /> } /> //v5 react-router-dom//*/}
         <Route
           path="/user/dashboard"
