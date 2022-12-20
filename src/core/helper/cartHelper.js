@@ -13,6 +13,7 @@ export const addItemToCart = (item, next) => {
 
 export const loadCart = () => {
   if (typeof window !== "undefined") {
+    // console.log(localStorage.getItem("cart"));
     if (localStorage.getItem("cart")) {
       return JSON.parse(localStorage.getItem("cart"));
     }

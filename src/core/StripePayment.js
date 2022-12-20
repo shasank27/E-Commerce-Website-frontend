@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import StripeCheckout from "react-stripe-checkout";
 import { isAuthenticated } from "../auth/helper";
+import { API } from "../backend";
 import { emptyCart, loadCart } from "./helper/cartHelper";
 
 const StripePayment = ({
@@ -46,9 +47,9 @@ const StripePayment = ({
   const showStripeButton = () => {
     return isAuthenticated() ? (
       <StripeCheckout
-        amount={getFinalPrice() * 100}
-        token={makePayment()}
         stripeKey={process.env.REACT_APP_KEY}
+        token={makePayment}
+        amount={getFinalPrice() * 100}
         billingAddress
         shippingAddress
         name="Stripe Payment"
